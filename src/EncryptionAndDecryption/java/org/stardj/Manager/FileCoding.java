@@ -27,7 +27,7 @@ public class FileCoding {
         try {
             iDES = new DESUtils();
             String path = file.getAbsolutePath().replace(file.getName(), "");
-            imovie = new iMovies(num,iDES.enCoding(file.getName()));
+//            imovie = new iMovies(num,iDES.enCoding(file.getName()));
 
             //将数据插入数据库
             JDBCUtils.insert(imovie);
@@ -65,14 +65,18 @@ public class FileCoding {
 
             iDES = new DESUtils();
             int ID = Integer.valueOf(file.getName());
-            String fileName = JDBCUtils.select(ID);
+//            String fileName = JDBCUtils.select(ID);
             String path = file.getAbsolutePath().replace(file.getName(), "");
+//            String path = file.getAbsolutePath().replace(file.getName(), "");
             byte[] passwd = KeyCode.getBytes();
 
             //获取加密文件
             BufferedInputStream bisOld = new BufferedInputStream(new FileInputStream(file));
             //输出解密后流文件
-            BufferedOutputStream bosNew = new BufferedOutputStream(new FileOutputStream(new File( path + iDES.deCoding(fileName))));
+//            BufferedOutputStream bosNew = new BufferedOutputStream(new FileOutputStream(new File( path + iDES.deCoding(fileName))));
+
+            BufferedOutputStream bosNew = new BufferedOutputStream(new FileOutputStream(new File( path + "test.rmvb")));
+
             //获取密钥
             bisOld.read(passwd);
             passwd = null;
@@ -84,7 +88,7 @@ public class FileCoding {
                 bosNew.write(buffer, 0, len);
             }
 
-            JDBCUtils.delete(ID);//删除数据库中对应的信息
+//            JDBCUtils.delete(ID);//删除数据库中对应的信息
             bosNew.flush();
             bosNew.close();
             bisOld.close();
@@ -100,10 +104,10 @@ public class FileCoding {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
+//        } catch (IllegalBlockSizeException e) {
+//            e.printStackTrace();
+//        } catch (BadPaddingException e) {
+//            e.printStackTrace();
         }
 
     }
@@ -111,9 +115,11 @@ public class FileCoding {
     public static void main(String[] args) {
         String test = "/Users/stardj/Documents/testfiles/课表ielts.jpg";
 
-        String test1= "/Users/stardj/Documents/testfiles/0";
+        String test1= "/Users/stardj/movie/92";
+        String test2= "/Users/stardj/movie/104";
 
-        File file = new File(test1);
+        File file = new File(test2);
+
 
         FileCoding fileCoding = new FileCoding();
 

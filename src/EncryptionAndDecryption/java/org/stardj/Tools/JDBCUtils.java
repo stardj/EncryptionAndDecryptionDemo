@@ -37,8 +37,8 @@ public class JDBCUtils {
         String sql = "insert into names (id,name) values(?,?)";
         try {
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
-            pstmt.setString(1, String.valueOf(imovies.getID()));
-            pstmt.setString(2, imovies.getName());
+            pstmt.setString(1, String.valueOf(imovies.getFilenameMD5()));
+            pstmt.setString(2, imovies.getFileName());
             i = pstmt.executeUpdate();
             pstmt.close();
             conn.close();
@@ -108,7 +108,7 @@ public class JDBCUtils {
     public static int update(iMovies imovies) {
         Connection conn = getConn();
         int i = 0;
-        String sql = "update names set ID='" + imovies.getID() + "' where name='" + imovies.getName() + "'";
+        String sql = "update names set ID='" + imovies.getFilenameMD5() + "' where name='" + imovies.getFileName() + "'";
         try {
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             i = pstmt.executeUpdate();
